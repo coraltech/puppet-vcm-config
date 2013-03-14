@@ -1,0 +1,56 @@
+{
+  "start": ["init"],
+  "commands": {
+    "init": {
+      "data": {
+        "min": "1",
+        "tries": "3",
+        "exit": "git_password_changed"
+      },
+      "flags": ["destroy"],
+      "coral": "init",
+      "events": "puppet",
+      "args": ["hadoop1"]
+    },
+    "update": {
+      "data": {
+        "min": "1",
+        "tries": "1"
+      },
+      "coral": "update",
+      "events": "puppet",
+      "args": ["hadoop1"]
+    },
+    "push": {
+      "data": {
+        "message": "Saving state",
+        "branch": "master",
+        "repos": "config"
+      },
+      "flags": ["commit", "allow_empty", "tags"],
+      "coral": "push",
+      "events": "puppet",
+      "args": ["hadoop1"]
+    }
+  },
+  "events": {
+    "git_password_changed": {
+      "element": "User[git]",
+      "operation": "password",
+      "message": "changed",
+      "type": "puppet"
+    }
+  },
+  "actions": {
+    "push_config": {
+      "commands": ["push", "update"],
+      "data": {
+        "update": {
+          "tries": "5"
+        }
+      },
+      "events": "git_password_changed",
+      "trigger_success": "config_pushed"
+    }
+  }
+}
