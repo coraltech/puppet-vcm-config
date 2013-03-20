@@ -7,7 +7,7 @@
         "tries": "3",
         "exit": "git_password_changed"
       },
-      "flags": ["destroy"],
+      "flags": ["destroy", "force"],
       "coral": "init",
       "events": "puppet",
       "args": ["hadoop1"]
