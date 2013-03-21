@@ -1,0 +1,6 @@
+{
+  "profiles" : [ "hadoop" ],
+  "global_facts" : {
+    "server_stage" : "hadoop_initialize"
+  }
+}
